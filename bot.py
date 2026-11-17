@@ -115,7 +115,17 @@ def fetch_all():
                 print(f"Страница {n}: ошибка {e}")
                 break
             print(f"Страница {n}: найдено {len(ads)}")
+            if n == 1:
+                for k, (t, u) in list(ads.items())[:6]:
+                    print("КАРТОЧКА:", k, "|", t[:220])
             if not ads:
+                print("URL:", page.url)
+                print("ЗАГОЛОВОК:", page.title())
+                try:
+                    body = page.inner_text("body")
+                    print("ТЕКСТ:", " ".join(body.split())[:400])
+                except Exception as e:
+                    print("Не удалось прочитать страницу:", e)
                 break
             for k, v in ads.items():
                 found.setdefault(k, v)
